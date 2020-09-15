@@ -15,7 +15,25 @@
 		9E8317BA25093B3200B30F84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317B825093B3200B30F84 /* LaunchScreen.storyboard */; };
 		9E8317C525093B3200B30F84 /* OmdbMoviesTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317C425093B3200B30F84 /* OmdbMoviesTestTests.swift */; };
 		9E8317D025093D3C00B30F84 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317CF25093D3C00B30F84 /* SearchViewController.swift */; };
-		9E8317D225093D9300B30F84 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317D125093D9300B30F84 /* MovieViewController.swift */; };
+		9E8317D9250A529B00B30F84 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317D7250A529B00B30F84 /* SearchTableViewCell.xib */; };
+		9E8317DA250A529B00B30F84 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317D8250A529B00B30F84 /* SearchTableViewCell.swift */; };
+		9E8317DF250A592D00B30F84 /* PreviousSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317DD250A592D00B30F84 /* PreviousSearchCell.swift */; };
+		9E8317E9250A625600B30F84 /* PopularMoviesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317E7250A625600B30F84 /* PopularMoviesCell.swift */; };
+		9E8317EA250A625600B30F84 /* PopularMoviesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317E8250A625600B30F84 /* PopularMoviesCell.xib */; };
+		9E8317F3250A644B00B30F84 /* Frutiger_Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317EE250A644B00B30F84 /* Frutiger_Roman.ttf */; };
+		9E8317F4250A644B00B30F84 /* Frutiger_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317EF250A644B00B30F84 /* Frutiger_bold.ttf */; };
+		9E8317F5250A644B00B30F84 /* Frutiger_Normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317F0250A644B00B30F84 /* Frutiger_Normal.ttf */; };
+		9E8317F6250A644B00B30F84 /* Frutiger-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8317F1250A644B00B30F84 /* Frutiger-Roman.otf */; };
+		9E8317F7250A644B00B30F84 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317F2250A644B00B30F84 /* Theme.swift */; };
+		9E8317F9250A64BA00B30F84 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317F8250A64B900B30F84 /* UIColorExtension.swift */; };
+		9E8317FC250F767800B30F84 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317FB250F767800B30F84 /* CacheManager.swift */; };
+		9E8317FE250F76D800B30F84 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8317FD250F76D800B30F84 /* CacheService.swift */; };
+		9E831801250F773100B30F84 /* PreviousSearches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E831800250F773100B30F84 /* PreviousSearches.swift */; };
+		9E8318032510C8BA00B30F84 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8318022510C8BA00B30F84 /* MovieViewController.swift */; };
+		9E8318052510DB2200B30F84 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8318042510DB2200B30F84 /* UIDeviceExtension.swift */; };
+		9E83180925110D8300B30F84 /* PopularCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83180725110D8300B30F84 /* PopularCollectionCell.swift */; };
+		9E83180A25110D8300B30F84 /* PopularCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E83180825110D8300B30F84 /* PopularCollectionCell.xib */; };
+		9E83180C2511153D00B30F84 /* PreviousSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E83180B2511153D00B30F84 /* PreviousSearchCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +59,25 @@
 		9E8317C425093B3200B30F84 /* OmdbMoviesTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmdbMoviesTestTests.swift; sourceTree = "<group>"; };
 		9E8317C625093B3200B30F84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E8317CF25093D3C00B30F84 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		9E8317D125093D9300B30F84 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
+		9E8317D7250A529B00B30F84 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		9E8317D8250A529B00B30F84 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		9E8317DD250A592D00B30F84 /* PreviousSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSearchCell.swift; sourceTree = "<group>"; };
+		9E8317E7250A625600B30F84 /* PopularMoviesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesCell.swift; sourceTree = "<group>"; };
+		9E8317E8250A625600B30F84 /* PopularMoviesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopularMoviesCell.xib; sourceTree = "<group>"; };
+		9E8317EE250A644B00B30F84 /* Frutiger_Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Frutiger_Roman.ttf; sourceTree = "<group>"; };
+		9E8317EF250A644B00B30F84 /* Frutiger_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Frutiger_bold.ttf; sourceTree = "<group>"; };
+		9E8317F0250A644B00B30F84 /* Frutiger_Normal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Frutiger_Normal.ttf; sourceTree = "<group>"; };
+		9E8317F1250A644B00B30F84 /* Frutiger-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Frutiger-Roman.otf"; sourceTree = "<group>"; };
+		9E8317F2250A644B00B30F84 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9E8317F8250A64B900B30F84 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		9E8317FB250F767800B30F84 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		9E8317FD250F76D800B30F84 /* CacheService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+		9E831800250F773100B30F84 /* PreviousSearches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSearches.swift; sourceTree = "<group>"; };
+		9E8318022510C8BA00B30F84 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = View/MovieViewController.swift; sourceTree = "<group>"; };
+		9E8318042510DB2200B30F84 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		9E83180725110D8300B30F84 /* PopularCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCollectionCell.swift; sourceTree = "<group>"; };
+		9E83180825110D8300B30F84 /* PopularCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopularCollectionCell.xib; sourceTree = "<group>"; };
+		9E83180B2511153D00B30F84 /* PreviousSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviousSearchCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +119,13 @@
 		9E8317AC25093B2D00B30F84 /* OmdbMoviesTest */ = {
 			isa = PBXGroup;
 			children = (
+				9E8317FF250F771D00B30F84 /* Model */,
+				9E8317FA250F764600B30F84 /* Service Manager */,
+				9E8317EB250A643900B30F84 /* Utilities */,
 				9E8317D325093D9700B30F84 /* View */,
-				9E8317AD25093B2D00B30F84 /* AppDelegate.swift */,
+				9E8318022510C8BA00B30F84 /* MovieViewController.swift */,
 				9E8317AF25093B2D00B30F84 /* SceneDelegate.swift */,
+				9E8317AD25093B2D00B30F84 /* AppDelegate.swift */,
 				9E8317B325093B2D00B30F84 /* Main.storyboard */,
 				9E8317B625093B3200B30F84 /* Assets.xcassets */,
 				9E8317B825093B3200B30F84 /* LaunchScreen.storyboard */,
@@ -106,11 +146,105 @@
 		9E8317D325093D9700B30F84 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9E8317B125093B2D00B30F84 /* HomeViewController.swift */,
+				9E8317DB250A587C00B30F84 /* Home Page */,
+				9E8317D6250A529B00B30F84 /* Search Cell */,
 				9E8317CF25093D3C00B30F84 /* SearchViewController.swift */,
-				9E8317D125093D9300B30F84 /* MovieViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9E8317D6250A529B00B30F84 /* Search Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317D7250A529B00B30F84 /* SearchTableViewCell.xib */,
+				9E8317D8250A529B00B30F84 /* SearchTableViewCell.swift */,
+			);
+			path = "Search Cell";
+			sourceTree = "<group>";
+		};
+		9E8317DB250A587C00B30F84 /* Home Page */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317E6250A623100B30F84 /* Popular Movies */,
+				9E8317DC250A58F100B30F84 /* Previous Search */,
+				9E8317B125093B2D00B30F84 /* HomeViewController.swift */,
+			);
+			path = "Home Page";
+			sourceTree = "<group>";
+		};
+		9E8317DC250A58F100B30F84 /* Previous Search */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317DD250A592D00B30F84 /* PreviousSearchCell.swift */,
+				9E83180B2511153D00B30F84 /* PreviousSearchCell.xib */,
+			);
+			path = "Previous Search";
+			sourceTree = "<group>";
+		};
+		9E8317E6250A623100B30F84 /* Popular Movies */ = {
+			isa = PBXGroup;
+			children = (
+				9E83180625110D5100B30F84 /* PopularMoviesCollection */,
+				9E8317E7250A625600B30F84 /* PopularMoviesCell.swift */,
+				9E8317E8250A625600B30F84 /* PopularMoviesCell.xib */,
+			);
+			path = "Popular Movies";
+			sourceTree = "<group>";
+		};
+		9E8317EB250A643900B30F84 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317EC250A644B00B30F84 /* Theme */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		9E8317EC250A644B00B30F84 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317ED250A644B00B30F84 /* Font */,
+				9E8317F2250A644B00B30F84 /* Theme.swift */,
+				9E8318042510DB2200B30F84 /* UIDeviceExtension.swift */,
+				9E8317F8250A64B900B30F84 /* UIColorExtension.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		9E8317ED250A644B00B30F84 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317EE250A644B00B30F84 /* Frutiger_Roman.ttf */,
+				9E8317EF250A644B00B30F84 /* Frutiger_bold.ttf */,
+				9E8317F0250A644B00B30F84 /* Frutiger_Normal.ttf */,
+				9E8317F1250A644B00B30F84 /* Frutiger-Roman.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		9E8317FA250F764600B30F84 /* Service Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9E8317FD250F76D800B30F84 /* CacheService.swift */,
+				9E8317FB250F767800B30F84 /* CacheManager.swift */,
+			);
+			path = "Service Manager";
+			sourceTree = "<group>";
+		};
+		9E8317FF250F771D00B30F84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E831800250F773100B30F84 /* PreviousSearches.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9E83180625110D5100B30F84 /* PopularMoviesCollection */ = {
+			isa = PBXGroup;
+			children = (
+				9E83180725110D8300B30F84 /* PopularCollectionCell.swift */,
+				9E83180825110D8300B30F84 /* PopularCollectionCell.xib */,
+			);
+			path = PopularMoviesCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,8 +329,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E8317BA25093B3200B30F84 /* LaunchScreen.storyboard in Resources */,
+				9E8317F5250A644B00B30F84 /* Frutiger_Normal.ttf in Resources */,
+				9E8317F3250A644B00B30F84 /* Frutiger_Roman.ttf in Resources */,
+				9E8317D9250A529B00B30F84 /* SearchTableViewCell.xib in Resources */,
+				9E83180C2511153D00B30F84 /* PreviousSearchCell.xib in Resources */,
 				9E8317B725093B3200B30F84 /* Assets.xcassets in Resources */,
+				9E8317F6250A644B00B30F84 /* Frutiger-Roman.otf in Resources */,
 				9E8317B525093B2D00B30F84 /* Main.storyboard in Resources */,
+				9E8317EA250A625600B30F84 /* PopularMoviesCell.xib in Resources */,
+				9E83180A25110D8300B30F84 /* PopularCollectionCell.xib in Resources */,
+				9E8317F4250A644B00B30F84 /* Frutiger_bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,11 +356,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E8318052510DB2200B30F84 /* UIDeviceExtension.swift in Sources */,
 				9E8317B225093B2D00B30F84 /* HomeViewController.swift in Sources */,
-				9E8317D225093D9300B30F84 /* MovieViewController.swift in Sources */,
+				9E8318032510C8BA00B30F84 /* MovieViewController.swift in Sources */,
 				9E8317AE25093B2D00B30F84 /* AppDelegate.swift in Sources */,
+				9E83180925110D8300B30F84 /* PopularCollectionCell.swift in Sources */,
+				9E8317FC250F767800B30F84 /* CacheManager.swift in Sources */,
+				9E8317E9250A625600B30F84 /* PopularMoviesCell.swift in Sources */,
+				9E8317DA250A529B00B30F84 /* SearchTableViewCell.swift in Sources */,
+				9E8317DF250A592D00B30F84 /* PreviousSearchCell.swift in Sources */,
+				9E8317F7250A644B00B30F84 /* Theme.swift in Sources */,
+				9E8317F9250A64BA00B30F84 /* UIColorExtension.swift in Sources */,
+				9E831801250F773100B30F84 /* PreviousSearches.swift in Sources */,
 				9E8317D025093D3C00B30F84 /* SearchViewController.swift in Sources */,
 				9E8317B025093B2D00B30F84 /* SceneDelegate.swift in Sources */,
+				9E8317FE250F76D800B30F84 /* CacheService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +531,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AM99E35ABX;
 				INFOPLIST_FILE = OmdbMoviesTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -397,6 +550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AM99E35ABX;
 				INFOPLIST_FILE = OmdbMoviesTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  ViewController.swift
 //  OmdbMoviesTest
 //
 //  Copyright © 2020 Test. All rights reserved.
