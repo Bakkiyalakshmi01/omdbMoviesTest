@@ -12,6 +12,7 @@ class PreviousSearches: NSObject, NSCoding {
     // MARK: - Stored Properties
     
     var searches: [String] = []
+    var selectedString : String = ""
     
     // MARK: - Initializers
     
@@ -23,9 +24,12 @@ class PreviousSearches: NSObject, NSCoding {
     
     required init(coder decoder: NSCoder) {
         searches = decoder.decodeObject(forKey: "searches") as? [String] ?? []
+        selectedString = decoder.decodeObject(forKey: "selectedString") as? String ?? ""
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(searches, forKey: "searches")
+        aCoder.encode(selectedString, forKey: "selectedString")
+
     }
 }

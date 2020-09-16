@@ -50,7 +50,7 @@ extension UIDevice {
     }
     
     //  Landscape Portrait
-    var isDevicePortrait: Bool {
+    public var isDevicePortrait: Bool {
         return UIDevice.current.orientation.isPortrait
     }
        

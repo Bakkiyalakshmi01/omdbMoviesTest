@@ -12,10 +12,9 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    // MARK: - Variable Declarations
+    // MARK: - Variable Initializations
     var searchActive : Bool = false
-    var filtered: [String] = []
-    var moviesList = ["Batman", "Spiderman", "Superman", "Ironman", "X-men", "Amazingman", "Life", "Love", "Twilight", "Narcos"]
+    var filteredMovies: [Movie] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,13 +34,45 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "Search Movies"
+        self.getSearchWordFromCache()
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
         self.dismissKeyboard()
+        self.clearSearchData()
     }
     
-    // To dimiss the keyboard without triggering request
+    // MARK: - Private Methods
+    
+    /// Gets the search word from PreviousSearches  cache
+    private func getSearchWordFromCache() {
+        let searchWord = CacheManager.previousSearches.selectedString
+        guard searchWord != "" else {
+          return
+        }
+        searchActive = true
+        self.searchBar.text = searchWord
+        self.fetchSearchedMovies(searchString: searchWord)
+        CacheManager.previousSearches.selectedString = ""
+        CacheManager.store(cache: .previousSearches)
+    }
+    
+    /// Function to save the previous searches
+    private func savePreviousSearch(_ searchText : String) {
+        guard !CacheManager.previousSearches.searches.contains(searchText) else {
+            return
+        }
+        CacheManager.previousSearches.searches.append(searchText)
+        CacheManager.store(cache: .previousSearches)
+    }
+    
+    /// Function to clear the search results data
+    private func clearSearchData() {
+        self.filteredMovies.removeAll()
+        self.tableView.reloadData()
+    }
+    
+    /// To dimiss the keyboard without triggering request
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.dismissKeyboard()
     }
@@ -50,91 +81,122 @@ class SearchViewController: UIViewController {
         searchActive = false
         view.endEditing(true)
     }
-    
 }
 
 extension SearchViewController : UISearchBarDelegate {
-
+    //MARK:- Implementing search bar delegate methods
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchActive = false
-        self.dismissKeyboard()
+        let searchText = searchBar.searchTextField.text
+        guard searchText != "" else {
+            return
+        }
+        self.savePreviousSearch(searchText!)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
         self.dismissKeyboard()
+        self.clearSearchData()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
+        self.dismissKeyboard()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filtered = moviesList.filter({ (text) -> Bool in
-            let tmp: NSString = text as NSString
-            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-            return range.location != NSNotFound
-        })
-        if filtered.count == 0 {
+        self.fetchSearchedMovies(searchString: searchText)
+        if filteredMovies.count == 0  {
             searchActive = false
         } else {
             searchActive = true
         }
-        self.tableView.reloadData()
+        
+        if searchText.count <  1 {
+            self.clearSearchData()
+            searchActive = false
+        }
     }
 }
 
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
-
+    //MARK:- Implementing table view delegate and datasource methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchActive {
-            return filtered.count
+            if filteredMovies.count > 0 {
+                return filteredMovies.count
+            }
+            return 1
         } else {
             if CacheManager.previousSearches.searches.count > 0 {
                 return CacheManager.previousSearches.searches.count
-            } else {
-                return 0
             }
+            return 1
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if searchActive {
+            return 100
+        }
+        return 60
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
         if searchActive {
-            cell.textLabel?.text = self.filtered[indexPath.row]
+            if filteredMovies.count > 0 {
+                let moviesList = self.filteredMovies[indexPath.row]
+                cell.movieNameLabel?.text = moviesList.title
+                cell.movieNameLabel.textAlignment = .left
+                cell.fetchImageFromURL(imageUrl: moviesList.poster)
+                cell.isUserInteractionEnabled = true
+            } else {
+                cell.movieImageView.image = nil
+                cell.movieNameLabel.text = "No results found"
+                cell.movieNameLabel.textAlignment = .right
+                cell.isUserInteractionEnabled = false
+            }
         } else {
             if CacheManager.previousSearches.searches.count > 0 {
-                cell.textLabel?.text = CacheManager.previousSearches.searches[indexPath.row]
+                cell.movieImageView.image = nil
+                cell.movieNameLabel.textAlignment = .left
+                cell.movieNameLabel?.text = CacheManager.previousSearches.searches[indexPath.row]
+                cell.isUserInteractionEnabled = true
+            } else {
+                cell.movieImageView.image = nil
+                cell.movieNameLabel.text = "No searches found"
+                cell.movieNameLabel.textAlignment = .right
+                cell.isUserInteractionEnabled = false
             }
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if searchActive {
-            if !CacheManager.previousSearches.searches.contains(self.filtered[indexPath.row]) {
-                CacheManager.previousSearches.searches.append(self.filtered[indexPath.row])
-            }
-        }
-        CacheManager.store(cache: .previousSearches)
+      
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller: MovieViewController = (storyboard.instantiateViewController(withIdentifier: "movieVC") as? MovieViewController)!
-        if searchActive {
-            controller.movieName = self.filtered[indexPath.row]
+        if searchActive && self.filteredMovies.count > 0 {
+            controller.movieDetails = self.filteredMovies[indexPath.row]
+            self.navigationController?.pushViewController(controller, animated: false)
         } else {
-            controller.movieName = CacheManager.previousSearches.searches[indexPath.row]
+            searchActive = true
+            self.searchBar.text = CacheManager.previousSearches.searches[indexPath.row]
+            self.fetchSearchedMovies(searchString: CacheManager.previousSearches.searches[indexPath.row])
         }
-        self.navigationController?.pushViewController(controller, animated: false)
     }
-    
+}
+
+extension SearchViewController {
+    //MARK:- Implementing table view header methods
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if searchActive {
            return "Search Results"
@@ -144,8 +206,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 50
+        if UIDevice().isIPad {
+            return 70
         } else {
             return 50
         }
@@ -155,7 +217,33 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         view.tintColor = UIColor.init(hex: "#F1F4F5")
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = .darkGray
-        header.textLabel?.font = UIFont.appFontBold(size: 20)
+        if UIDevice().isIPad {
+           header.textLabel?.font = UIFont.appFontBold(size: 26)
+        } else {
+           header.textLabel?.font = UIFont.appFontBold(size: 20)
+        }
         header.textLabel?.minimumScaleFactor = 0.5
+    }
+}
+
+extension SearchViewController {
+   
+    /// Get Request  to search movies api
+    ///
+    /// - Parameters:
+    ///     - searchString: string value will be searched
+    private func fetchSearchedMovies(searchString : String) {
+        ServiceManager().fetchMovies(with: searchString) {
+            (movieResp, error) in
+            if movieResp != nil {
+                self.filteredMovies.removeAll()
+                for movies in movieResp!.search {
+                    self.filteredMovies.append(movies)
+                }
+                self.tableView.reloadData()
+            } else {
+                print("Error json")
+            }
+        }
     }
 }

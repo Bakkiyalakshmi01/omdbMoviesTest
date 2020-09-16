@@ -1,9 +1,6 @@
 //
 //  UIColorExtension.swift
-//  OmdbMoviesTest
-//
-//  Copyright © 2020 Test. All rights reserved.
-//
+
 import UIKit
 
 extension UIColor {
@@ -32,12 +29,11 @@ extension UIColor {
         charSet.insert("#")
         let _hex = hex.trimmingCharacters(in: charSet)
         guard _hex.range(of: "^[0-9A-Fa-f]{6}$", options: .regularExpression) != nil else { return nil }
-        var rgb: UInt32 = 0
-        Scanner(string: _hex).scanHexInt32(&rgb)
+        var rgb: UInt64 = 0
+        Scanner(string: _hex).scanHexInt64(&rgb)
         self.init(rgbWithoutValidation: Int32(rgb), alpha: alpha)
     }
 }
-
 
 
 /*
@@ -51,4 +47,12 @@ func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
     let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
     let blue = CGFloat(rgbValue & 0xFF)/256.0
     return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
+}
+
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
 }

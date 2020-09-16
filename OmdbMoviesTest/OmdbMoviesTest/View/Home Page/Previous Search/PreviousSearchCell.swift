@@ -12,5 +12,10 @@ class PreviousSearchCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        if UIDevice().isIPad {
+            self.textLabel?.font = UIFont.appFontRoman(size: 22)
+        } else {
+            self.textLabel?.font = UIFont.appFontRoman(size: 17)
+        }
     }
 }

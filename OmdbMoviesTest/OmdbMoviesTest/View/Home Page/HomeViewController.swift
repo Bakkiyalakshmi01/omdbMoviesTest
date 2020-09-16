@@ -10,8 +10,10 @@ import UIKit
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-   
-    var popularMovies = ["Batman", "Spiderman", "Superman", "Ironman"]
+
+    // MARK: - Variable Initializations
+    
+    var popularMovies : [Movie] = []
     var storedOffsetPopular = [Int: CGFloat]()
 
     override func viewDidLoad() {
@@ -22,7 +24,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "OMDB Movies"
-        self.tableView.reloadData()
+        self.fetchPopularMovies()
     }
 
     private func setView() {
@@ -65,7 +67,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
  
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         if indexPath.section == 1 &&  CacheManager.previousSearches.searches.count > 0  {
-              return 100
+              return 60
         } else if indexPath.section == 0 {
           return 320
         }
@@ -80,20 +82,16 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PopularMoviesCell", for: indexPath) as! PopularMoviesCell
-            cell.viewHeight = self.view.frame.height
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller: MovieViewController = (storyboard.instantiateViewController(withIdentifier: "movieVC") as? MovieViewController)!
-        if indexPath.section == 0 {
-            controller.movieName = self.popularMovies[indexPath.row]
-        } else {
-            controller.movieName = CacheManager.previousSearches.searches[indexPath.row]
+        if indexPath.section == 1 {
+            CacheManager.previousSearches.selectedString = CacheManager.previousSearches.searches[indexPath.row]
+            CacheManager.store(cache: .previousSearches)
+            self.tabBarController?.selectedIndex = 1
         }
-        self.navigationController?.pushViewController(controller, animated: false)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -105,8 +103,8 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 50
+        if UIDevice().isIPad {
+            return 70
         } else {
             return 50
         }
@@ -116,8 +114,12 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         view.tintColor = UIColor.init(hex: "#F1F4F5")
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = .darkGray
-        header.textLabel?.font = UIFont.appFontBold(size: 20)
         header.textLabel?.minimumScaleFactor = 0.5
+        if UIDevice().isIPad {
+           header.textLabel?.font = UIFont.appFontBold(size: 26)
+        } else {
+           header.textLabel?.font = UIFont.appFontBold(size: 20)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -145,15 +147,39 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularCollectionCell", for: indexPath)  as! PopularCollectionCell
             //TODO:
-            cell.largeContentTitle = self.popularMovies[indexPath.row]
-            return cell
+        cell.fetchImageFromURL(imageUrl: self.popularMovies[indexPath.row].poster)
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO:
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller: MovieViewController = (storyboard.instantiateViewController(withIdentifier: "movieVC") as? MovieViewController)!
+        controller.movieDetails = self.popularMovies[indexPath.row]
+        self.navigationController?.pushViewController(controller, animated: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size;
+    }
+}
+
+extension HomeViewController {
+   
+    // Get Request api call to display popular movies in 2020
+    ///
+    /// parameters :   string , year - Man as random search string and year as 2020
+    private func fetchPopularMovies() {
+        self.popularMovies.removeAll()
+        ServiceManager().fetchMovies(with: "Man&y=2020") {
+            (movieResp, error) in
+            if movieResp != nil {
+                for movies in movieResp!.search {
+                    self.popularMovies.append(movies)
+                }
+                self.tableView.reloadData()
+            } else {
+                print("Error json")
+            }
+        }
     }
 }
