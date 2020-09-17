@@ -16,16 +16,15 @@ class PopularCollectionCell: UICollectionViewCell {
         // Initialization code
     }
     
-    
     func fetchImageFromURL(imageUrl: String) {
         AF.request( imageUrl, method: .get).response { response in
             switch response.result {
             case .success(let responseData):
-                self.imageView.image = UIImage(data: responseData!, scale:1)?.resized(to: CGSize(width: 100, height: 100))
+                self.imageView.image = UIImage(data: responseData!, scale:1)?.resized(to: UIDevice().getItemSize())
+                self.imageView.contentMode = .center
             case .failure(let error):
                 print("error fetching image",error)
             }
         }
     }
-
 }

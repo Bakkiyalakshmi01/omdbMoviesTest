@@ -1,5 +1,9 @@
 //
 //  UIColorExtension.swift
+//  OmdbMoviesTest
+//
+//  Copyright © 2020 Test. All rights reserved.
+//
 
 import UIKit
 
@@ -53,6 +57,18 @@ extension UIImage {
     func resized(to size: CGSize) -> UIImage {
         return UIGraphicsImageRenderer(size: size).image { _ in
             draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+}
+
+extension UIView {
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
         }
     }
 }

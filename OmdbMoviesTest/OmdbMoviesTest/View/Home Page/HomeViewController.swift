@@ -10,9 +10,10 @@ import UIKit
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-
-    // MARK: - Variable Initializations
+    @IBOutlet weak var tableViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableViewTrailingConstraint: NSLayoutConstraint!
     
+    // MARK: - Variable Initializations
     var popularMovies : [Movie] = []
     var storedOffsetPopular = [Int: CGFloat]()
 
@@ -29,11 +30,18 @@ class HomeViewController: UIViewController {
 
     private func setView() {
         if #available(iOS 13.0, *) {
-           overrideUserInterfaceStyle = .light
+            overrideUserInterfaceStyle = .light
         }
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
-       
+        
+        if UIDevice().isIPad {
+            self.tableViewLeadingConstraint.constant = 20
+            self.tableViewTrailingConstraint.constant = 20
+        } else {
+            self.tableViewLeadingConstraint.constant = 10
+            self.tableViewTrailingConstraint.constant = 10
+        }
         // Register nib files
         let nibName = UINib(nibName: "PreviousSearchCell", bundle: nil)
         self.tableView?.register(nibName, forCellReuseIdentifier: "PreviousSearchCell")
@@ -66,10 +74,13 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
      }
  
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        if indexPath.section == 1 &&  CacheManager.previousSearches.searches.count > 0  {
+        if indexPath.section == 1 && CacheManager.previousSearches.searches.count > 0  {
               return 60
         } else if indexPath.section == 0 {
-          return 320
+            if UIDevice().isIPad {
+                return 400
+            }
+            return 200
         }
         return 0
     }
@@ -104,10 +115,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if UIDevice().isIPad {
-            return 70
-        } else {
-            return 50
+            return 100
         }
+        return 80
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -159,7 +169,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.bounds.size;
+        UIDevice().getItemSize()
     }
 }
 

@@ -32,6 +32,14 @@ class MovieViewController: UIViewController {
         }
     }
     
+    @IBAction func playAction(_ sender: Any) {
+        let alert = UIAlertController.init(title: "Error playing movie", message: "Movie cannot be played or connected at this time", preferredStyle: .alert)
+           alert.addAction(UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+               self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func fetchImageFromURL(imageUrl: String) {
         AF.request( imageUrl, method: .get).response { response in
             switch response.result {

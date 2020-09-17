@@ -2,7 +2,6 @@
 //  SearchTableViewCell.swift
 //  GitHubAPI
 //
-//  Created by Bakkiya Lakshmi on 25/05/2020.
 //  Copyright © 2020 Test. All rights reserved.
 //
 

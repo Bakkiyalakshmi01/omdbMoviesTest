@@ -57,5 +57,13 @@ extension UIDevice {
     public var isDeviceLandscape: Bool {
         return UIDevice.current.orientation.isLandscape
     }
+    
+    func getItemSize() -> CGSize {
+        if UIDevice().isIPad {
+            return CGSize(width: 400, height: 400)
+        } else {
+            return CGSize(width: 200, height: 200)
+        }
+    }
 }
 

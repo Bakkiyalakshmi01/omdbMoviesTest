@@ -11,15 +11,34 @@ class SearchViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchLeadingConstraint: NSLayoutConstraint!
     
     // MARK: - Variable Initializations
     var searchActive : Bool = false
     var filteredMovies: [Movie] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
+        }
+        self.setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.title = "Search Movies"
+        self.getSearchWordFromCache()
+    }
+    
+    // MARK: - Private Methods
+    private func setupView() {
+        if UIDevice().isIPad {
+            self.searchLeadingConstraint.constant = 30
+            self.searchTrailingConstraint.constant = 30
+        } else {
+            self.searchLeadingConstraint.constant = 10
+            self.searchTrailingConstraint.constant = 50
         }
         let nibName = UINib(nibName: "SearchTableViewCell", bundle: nil)
         self.tableView?.register(nibName, forCellReuseIdentifier: "SearchTableViewCell")
@@ -31,19 +50,6 @@ class SearchViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Search Movies"
-        self.getSearchWordFromCache()
-    }
-    
-    @IBAction func cancelButtonAction(_ sender: Any) {
-        self.dismissKeyboard()
-        self.clearSearchData()
-    }
-    
-    // MARK: - Private Methods
-    
     /// Gets the search word from PreviousSearches  cache
     private func getSearchWordFromCache() {
         let searchWord = CacheManager.previousSearches.selectedString
@@ -59,10 +65,11 @@ class SearchViewController: UIViewController {
     
     /// Function to save the previous searches
     private func savePreviousSearch(_ searchText : String) {
-        guard !CacheManager.previousSearches.searches.contains(searchText) else {
+        let str = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !CacheManager.previousSearches.searches.contains(str) else {
             return
         }
-        CacheManager.previousSearches.searches.append(searchText)
+        CacheManager.previousSearches.searches.append(str)
         CacheManager.store(cache: .previousSearches)
     }
     
@@ -109,16 +116,13 @@ extension SearchViewController : UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.fetchSearchedMovies(searchString: searchText)
-        if filteredMovies.count == 0  {
+        if searchText.count <  1 {
+            self.clearSearchData()
             searchActive = false
         } else {
             searchActive = true
         }
-        
-        if searchText.count <  1 {
-            self.clearSearchData()
-            searchActive = false
-        }
+        self.tableView.reloadData()
     }
 }
 
@@ -161,7 +165,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.movieImageView.image = nil
                 cell.movieNameLabel.text = "No results found"
-                cell.movieNameLabel.textAlignment = .right
+                cell.movieNameLabel.textAlignment = .left
                 cell.isUserInteractionEnabled = false
             }
         } else {
@@ -170,11 +174,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.movieNameLabel.textAlignment = .left
                 cell.movieNameLabel?.text = CacheManager.previousSearches.searches[indexPath.row]
                 cell.isUserInteractionEnabled = true
-            } else {
-                cell.movieImageView.image = nil
-                cell.movieNameLabel.text = "No searches found"
-                cell.movieNameLabel.textAlignment = .right
-                cell.isUserInteractionEnabled = false
             }
         }
         return cell

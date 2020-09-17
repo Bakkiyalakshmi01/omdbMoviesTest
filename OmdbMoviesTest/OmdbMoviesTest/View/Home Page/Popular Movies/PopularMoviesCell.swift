@@ -25,51 +25,9 @@ class PopularMoviesCell: UITableViewCell {
         if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
           layout.minimumInteritemSpacing = 20
           layout.minimumLineSpacing = 10
-          layout.itemSize = getItemSize()
+            layout.itemSize = UIDevice().getItemSize()
           layout.invalidateLayout()
         }
-    }
-    
-    func getItemSize() -> CGSize {
-        var sizeArea = CGSize()
-        let itemHeight = self.collectionView.frame.size.height-10
-        let frameSize = self.frame.size
-        if  UIDevice().isIPad {
-            if UIDevice().isDevicePortrait {
-                print("It's Portrait iPad")
-                let spacing = frameSize.width
-                let itemWidth = spacing / 2
-                sizeArea = CGSize(width: itemWidth, height: itemHeight)
-            } else {
-                print("It's Landscape iPad")
-                let spacing = frameSize.width
-                let itemWidth = spacing / 3
-                let itemHeight = itemWidth
-                sizeArea = CGSize(width: itemWidth, height: itemHeight)
-            }
-        } else if UIDevice().isIPhone {
-            if UIDevice().isDevicePortrait {
-                sizeArea = CGSize(width: self.frame.size.width-40, height: self.collectionView.frame.size.height-10)
-            } else {
-                let spacing = frameSize.width - 20
-                let itemWidth = spacing / 2
-                sizeArea = CGSize(width: itemWidth, height: itemHeight)
-            }
-        } else if (UIScreen.main.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiom.tv) {
-          
-        } else if (UIScreen.main.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiom.unspecified) {
-            print("It's Unspecified Device")
-            if UIDevice().isDevicePortrait {
-                print("It's Portrait iPhone")
-                sizeArea = CGSize(width: frameSize.width, height: itemHeight)
-            } else {
-                print("It's Landscape iPhone")
-                let spacing = frameSize.width - 20
-                let itemWidth = spacing / 3
-                sizeArea = CGSize(width: itemWidth, height: itemHeight)
-            }
-        }
-        return sizeArea
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -79,14 +37,10 @@ class PopularMoviesCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        self.collectionView.collectionViewLayout = layout
-        self.collectionView!.contentInset = UIEdgeInsets(top: -15, left: 10, bottom:0, right: 10)
         if let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumInteritemSpacing = 10
             layout.minimumLineSpacing = 10
-            layout.itemSize = getItemSize()
+            layout.itemSize = UIDevice().getItemSize()
             layout.invalidateLayout()
         }
     }
